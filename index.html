@@ -1,35 +1,32 @@
 <html>
 <head>
     <title>My Web Page</title>
-   <script>
-     
-     <!-- Google Tag Manager -->
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-55M7H2H');
-<!-- End Google Tag Manager -->
-          
-     
-    function sendGetRequest() {
-      var key = 'key'; // 
-      var value = 'value'; // Replace 'value' with the actual value from the GTM data layer
-      
-      var url = 'http://httpbin.org/get?' + encodeURIComponent(key) + '=' + encodeURIComponent(value);
+   
 
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url, true);
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          console.log(xhr.responseText); // Log the response in the console
-        }
-      };
-      xhr.send();
-    }
+          
+   <script>
+const getApiRequestButton = document.getElementById("get-api-request-button");
+
+getApiRequestButton.addEventListener("click", async () => {
+  // Get the query string parameters from the GTM data layer.
+  const queryStringParameters = window.gtmDataLayer.get("queryStringParameters");
+
+  // Create a new URL object with the query string parameters.
+  const url = new URL("http://httpbin.org/get", window.location.origin);
+  for (const [key, value] of Object.entries(queryStringParameters)) {
+    url.searchParams.set(key, value);
+  }
+
+  // Make the GET API request.
+  const response = await fetch(url);
+
+  // Log the response in the console.
+  console.log(response);
+});
+</script>  
+    
      
-     
-  </script>
+
 </head>
 <body>
  
@@ -43,7 +40,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h1>Welcome to My Web Page</h1>
   </header>
 <p>this is my website</p>	
-    <button onclick="sendGetRequest()">Send GET Request</button>
+   <button id="get-api-request-button">Send GET API Request</button>
 
   <footer>
 
