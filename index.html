@@ -20,6 +20,17 @@
 <button id="get-api-request-button">Send GET API Request</button>
 
 <script>
+    
+    var queryString = window.location.search;
+  var urlParams = new URLSearchParams(queryString);
+  var key = urlParams.get('key');
+  var value = urlParams.get('value');
+
+  dataLayer.push({
+    'key': key,
+    'value': value
+  });
+    
 const getApiRequestButton = document.getElementById("get-api-request-button");
 
 getApiRequestButton.addEventListener("click", async () => {
